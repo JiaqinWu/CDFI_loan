@@ -96,7 +96,7 @@ def app():
         return
 
     # Prepare data for geographic visualization
-    geo_data = df_filtered.groupby('State').Mortgage1RecordingDate.counts().reset_index().rename(columns={'Mortgage1RecordingDate': 'Value'})
+    geo_data = df_filtered.groupby('State').Mortgage1RecordingDate.count().reset_index().rename(columns={'Mortgage1RecordingDate': 'Value'})
     geo_data = pd.merge(geo_data, fips[['State', 'State_abb', '2024_population']], on='State', how='inner')
     geo_data['Value_M'] = geo_data['Value'] / geo_data['2024_population'] * 1000000  # Normalize by population
 
