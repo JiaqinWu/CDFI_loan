@@ -6,7 +6,7 @@ import numpy as np
 
 # Load data
 cdfi = pd.read_csv("CDFI_Cert_List_06-17-2024_Final.csv")
-number_cdfi = pd.read_csv("Total_CDFI_0921.csv")
+number_cdfi = pd.read_csv("Total_CDFI_1004.csv")
 
 # Streamlit application
 def app():
@@ -48,6 +48,11 @@ def app():
     number_cdfi1 = number_cdfi[['Organization Name', 'Number', 'City', 'State', 'Zipcode', 'Address','Organization Website']]
     st.dataframe(number_cdfi1)
 
+    # Display number of loans by CDFI with better structure and clarity
+    st.markdown("### 💼 **Average Amount of Loans by CDFI**")
+    number_cdfi2 = number_cdfi[['Organization Name', 'Average Amount', 'City', 'State', 'Zipcode', 'Address','Organization Website']]
+    st.dataframe(number_cdfi2)
+
     # Add more interactivity (multi-select filter by state, sorted alphabetically)
     st.markdown("#### 🌍 **Filter by State**")
 
@@ -59,7 +64,7 @@ def app():
 
     # Filter data based on the selected states
     if selected_states:
-        filtered_data = number_cdfi1[number_cdfi1['State'].isin(selected_states)]
+        filtered_data = number_cdfi[number_cdfi['State'].isin(selected_states)]
         st.dataframe(filtered_data)
     else:
         st.write("Please select at least one state to view data.")

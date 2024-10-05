@@ -5,7 +5,7 @@ import plotly.express as px
 import datetime
 
 # Load the datasets
-df = pd.read_csv('Residential_records_CDFI_0916.csv')
+df = pd.read_csv('Residential_records_CDFI_1004.csv')
 fips = pd.read_csv('FIPS_code_0917.csv')
 
 # Streamlit application
@@ -108,7 +108,7 @@ def app():
 
     # Choropleth map for number of loans
     st.markdown("""
-    ##### Number of Residential Loans
+    ##### Geographic Visualization of the Number of Residential Loans
     """)
     fig1 = px.choropleth(
         geo_data,
@@ -125,7 +125,7 @@ def app():
 
     # Choropleth map for number of loans
     st.markdown("""
-    ##### Number of Residential Loans (normalized by population)
+    ##### Geographic Visualization of the Number of Residential Loans Per Million People 
     """)
     fig = px.choropleth(
         geo_data,
