@@ -7,15 +7,18 @@ import numpy as np
 # Load data
 cdfi = pd.read_csv("CDFI_Cert_List_06-17-2024_Final.csv")
 number_cdfi = pd.read_csv("Total_CDFI_1004.csv")
+table1 = pd.read_csv("Table1.csv")
+table2 = pd.read_csv("Table2.csv")
+table3 = pd.read_csv("Table3.csv")
 
 # Streamlit application
 def app():
     # Set wide layout and page title
-    st.set_page_config(page_title='CDFI Residential Loan Dashboard', layout='wide')
+    st.set_page_config(page_title='CDFI Research Coalition: Analysis of CDFI Lending in the Single-Family Mortgage Market', layout='wide')
 
     # Title section
-    st.title('CDFI Residential Loan Dashboard')
-    st.markdown("#### Analyzing residential loan trends from May 2021 to May 2024")
+    st.title('CDFI Research Coalition: Analysis of CDFI Lending in the Single-Family Mortgage Market')
+    st.markdown("#### Analyzing CDFI participation in the Single-Family Mortgage Market from 2021-2024.")
 
     # Introduction section with accent color
     st.markdown("""
@@ -29,11 +32,11 @@ def app():
     """, unsafe_allow_html=True)
 
     # Create space and add research questions in a structured layout
-    st.markdown("### 🔍 **Research Questions**")
+    st.markdown("### 📊 **Data Sources**")
     st.markdown("""
-    1. **What is the overall volume of residential loans over time?**
-    2. **Which states have the highest demand for CDFI-approved loans?**
-    3. **How does the average loan amount vary across states and CDFIs?**
+    1. **Home Mortgage Disclosure Act (HMDA) for 2022 and 2023**
+    2. **ATTOM Data Extract (proprietary extract based on public records such as property records)**
+    3. **CDFI Fund**
     """)
 
     # Add horizontal space between sections
@@ -44,30 +47,33 @@ def app():
         st.dataframe(cdfi)
 
     # Display number of loans by CDFI with better structure and clarity
-    st.markdown("### 💼 **Number of Loans by CDFI**")
-    number_cdfi1 = number_cdfi[['Organization Name', 'Number', 'City', 'State', 'Zipcode', 'Address','Organization Website']]
-    st.dataframe(number_cdfi1)
+    st.markdown("### 💼 **CDFI Data Extracted from HMDA 2022-2023 (Depository and Loan Fund)**")
+    st.dataframe(table1)
 
     # Display number of loans by CDFI with better structure and clarity
-    st.markdown("### 💼 **Average Amount of Loans by CDFI**")
-    number_cdfi2 = number_cdfi[['Organization Name', 'Average Amount', 'City', 'State', 'Zipcode', 'Address','Organization Website']]
-    st.dataframe(number_cdfi2)
+    st.markdown("### 💼 **CDFI Loan Fund Data Extracted from ATTOM 2022-2023 (Loan Fund Only)**")
+    st.markdown("##### 2022 ATTOM reporting Total: $8,311,175,400.00")
+    st.markdown("##### 2023 ATTOM reporting Total: $4,466,844,730.00")
+    st.dataframe(table2)
+
+    st.markdown("### 💼 **CDFI Loan Fund Data Discrepancies Between HMDA and ATTOM Extracts 2022-2023**")
+    st.dataframe(table3)
 
     # Add more interactivity (multi-select filter by state, sorted alphabetically)
-    st.markdown("#### 🌍 **Filter by State**")
+    #st.markdown("#### 🌍 **Filter by State**")
 
     # Sort the unique states alphabetically
-    sorted_states = sorted(number_cdfi1['State'].unique())
+    #sorted_states = sorted(table1['State'].unique())
 
     # Create a multi-select dropdown to filter by state
-    selected_states = st.multiselect('Select one or more states to filter CDFI data:', sorted_states)
+    #selected_states = st.multiselect('Select one or more states to filter CDFI data:', sorted_states)
 
     # Filter data based on the selected states
-    if selected_states:
-        filtered_data = number_cdfi[number_cdfi['State'].isin(selected_states)]
-        st.dataframe(filtered_data)
-    else:
-        st.write("Please select at least one state to view data.")
+    #if selected_states:
+        #filtered_data = number_cdfi[number_cdfi['State'].isin(selected_states)]
+        #st.dataframe(filtered_data)
+    #else:
+        #st.write("Please select at least one state to view data.")
 
 
 if __name__ == "__main__":

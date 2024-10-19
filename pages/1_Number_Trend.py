@@ -11,7 +11,7 @@ fips = pd.read_csv('FIPS_code_0917.csv')
 # Streamlit application
 def app():
     # Set wide layout and page title
-    st.set_page_config(page_title='CDFI Residential Loan Dashboard', layout='wide')
+    st.set_page_config(page_title='CDFI Research Coalition: Analysis of CDFI Lending in the Single-Family Mortgage Market', layout='wide')
 
     # Title and Introduction Section
     st.title('CDFI Residential Loan Dashboard')
