@@ -48,15 +48,24 @@ def app():
 
     # Display number of loans by CDFI with better structure and clarity
     st.markdown("### 💼 **CDFI Data Extracted from HMDA 2022-2023 (Depository and Loan Fund)**")
+    table1[' Average Loan Size '] = table1[' Average Loan Size '].replace('[\$,]', '', regex=True).astype(float)
+    table1[' Totals '] = table1[' Totals '].replace('[\$,]', '', regex=True).astype(float)
     st.dataframe(table1)
 
     # Display number of loans by CDFI with better structure and clarity
     st.markdown("### 💼 **CDFI Loan Fund Data Extracted from ATTOM 2022-2023 (Loan Fund Only)**")
     st.markdown("##### 2022 ATTOM reporting Total: $8,311,175,400.00")
     st.markdown("##### 2023 ATTOM reporting Total: $4,466,844,730.00")
+    table2[' Average Loan Size (Perameters: $3MM-$70,000 '] = table2[' Average Loan Size (Perameters: $3MM-$70,000 '].replace('[\$,]', '', regex=True).astype(float)
+    table2[' Total '] = table2[' Total '].replace('[\$,]', '', regex=True).astype(float)
     st.dataframe(table2)
 
     st.markdown("### 💼 **CDFI Loan Fund Data Discrepancies Between HMDA and ATTOM Extracts 2022-2023**")
+    table3[' HMDA: Average Loan Size (No Perameters) '] = table3[' HMDA: Average Loan Size (No Perameters) '].replace('[\$,]', '', regex=True).astype(float)
+    table3[' ATTOM: Average Loan Size (Perameters: $3MM-$70,000) '] = table3[' ATTOM: Average Loan Size (Perameters: $3MM-$70,000) '].replace('[\$,]', '', regex=True).astype(float)
+    table3[' HMDA: Total '] = table3[' HMDA: Total '].replace('[\$,]', '', regex=True).astype(float)
+    table3[' ATTOM: Total '] = table3[' ATTOM: Total '].replace('[\$,]', '', regex=True).astype(float)
+
     st.dataframe(table3)
 
     # Add more interactivity (multi-select filter by state, sorted alphabetically)
