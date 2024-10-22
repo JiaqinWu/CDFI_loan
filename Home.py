@@ -244,7 +244,7 @@ def app():
             st.session_state.slide_index -= 1
 
     # Add navigation buttons
-    col1, col2, col3 = st.columns([3, 10, 1])
+    col1, col2, col3 = st.columns([2, 10, 1])
     with col1:
         if st.button("Previous"):
             previous_slide()
