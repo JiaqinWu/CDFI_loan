@@ -222,13 +222,20 @@ def app():
 
     st.markdown("### 📖 OFN CDFI Research Coalition Presentation: October 21, 2024")
     
+
     # Folder where your slides are saved
     slide_folder = 'Slides'
 
+    # Custom sorting function to ensure slides are ordered numerically
+    def sorted_nicely(l):
+        """Sort the given list in the way that humans expect."""
+        import re
+        convert = lambda text: int(text) if text.isdigit() else text.lower()
+        alphanum_key = lambda key: [convert(c) for c in re.split('([0-9]+)', key)]
+        return sorted(l, key=alphanum_key)
 
-
-    # Collect slide paths
-    slides = sorted([os.path.join(slide_folder, f) for f in os.listdir(slide_folder) if f.endswith('.png')])
+    # Collect slide paths and ensure they are sorted correctly
+    slides = sorted_nicely([os.path.join(slide_folder, f) for f in os.listdir(slide_folder) if f.endswith('.png')])
 
     # Initialize session state to track the current slide index
     if 'slide_index' not in st.session_state:
@@ -249,17 +256,19 @@ def app():
         if st.button("Previous"):
             previous_slide()
 
-    with col2:
-        st.markdown(f"<h3 style='text-align: center;'>Slide {st.session_state.slide_index + 1} of {len(slides)}</h3>", unsafe_allow_html=True)
-
     with col3:
         if st.button("Next"):
             next_slide()
 
+    # Ensure slide index is properly displayed and updated in the center
+    current_slide_number = st.session_state.slide_index + 1
+    total_slides = len(slides)
+    with col2:
+        st.markdown(f"<h3 style='text-align: center;'>Slide {current_slide_number} of {total_slides}</h3>", unsafe_allow_html=True)
+
     # Display the current slide
     slide = Image.open(slides[st.session_state.slide_index])
     st.image(slide, use_column_width=True)
-
 
 
 
